@@ -317,7 +317,7 @@
           <h4 class="font-semibold mb-3 md:mb-4">Contact Us</h4>
           <p class="text-sm text-zinc-400">Hazro City, Punjab, Pakistan</p>
           <p class="text-sm text-zinc-400 mt-2">+92 300 1234567</p>
-          <p class="text-sm text-zinc-400 mt-2">hello@wovencrafts.pk</p>
+          <p class="text-sm text-zinc-400 mt-2"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e8808d848487a89f879e8d868b9a898e9c9bc69883">[email&#160;protected]</a></p>
           <p class="text-sm text-zinc-400 mt-4 md:mt-6">Mon–Sat: 9AM – 6PM</p>
         </div>
         <div class="col-span-2 md:col-span-1">
@@ -405,11 +405,11 @@
     </div>
   </div>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // HERO SLIDES
     const heroSlides = [
-      {id:0, img:"https://i.postimg.cc/FKnz5Frc/RTXO1TP.jpg", title:"Afghani Kilims", subtitle:"Mountain woven beauty"},
-      {id:1, img:"https://i.postimg.cc/zfTt4vST/A1Obt-DYx-SHL.jpg", title:"Pakistani Rugs", subtitle:"Punjab heritage"},
+      {id:0, img:"https://picsum.photos/id/29/2000/1200", title:"Afghani Kilims", subtitle:"Mountain woven beauty"},
+      {id:1, img:"https://picsum.photos/id/201/2000/1200", title:"Pakistani Rugs", subtitle:"Punjab heritage"},
       {id:2, img:"https://picsum.photos/id/251/2000/1200", title:"Handwoven Cushions", subtitle:"Soft Afghan wool"},
       {id:3, img:"https://picsum.photos/id/312/2000/1200", title:"Jaye Namaz Prayer Rugs", subtitle:"Daily blessings"},
       {id:4, img:"https://picsum.photos/id/866/2000/1200", title:"Runners & Doormats", subtitle:"Every entrance welcomes"},
@@ -461,10 +461,8 @@
           </div>
         </div>
       `).join('') + `
-        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-3 md:gap-4 z-10">
-          <button onclick="prevSlide()" class="w-10 h-10 md:w-12 md:h-12 bg-white/30 backdrop-blur-md hover:bg-white/50 text-white rounded-2xl flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
-          <button onclick="nextSlide()" class="w-10 h-10 md:w-12 md:h-12 bg-white/30 backdrop-blur-md hover:bg-white/50 text-white rounded-2xl flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
+        <button onclick="prevSlide()" class="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 bg-white/30 backdrop-blur-md hover:bg-white/60 text-white rounded-full flex items-center justify-center transition-all duration-200 shadow-lg"><i class="fa-solid fa-chevron-left text-sm md:text-base"></i></button>
+        <button onclick="nextSlide()" class="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 bg-white/30 backdrop-blur-md hover:bg-white/60 text-white rounded-full flex items-center justify-center transition-all duration-200 shadow-lg"><i class="fa-solid fa-chevron-right text-sm md:text-base"></i></button>
         <div id="hero-dots" class="flex gap-3"></div>`;
 
       const dots = document.getElementById('hero-dots');
@@ -768,17 +766,31 @@
       document.getElementById('mobile-menu').classList.toggle('hidden');
     }
 
-    // Init
-    function init() {
-      renderProducts(products);
-      startSlideshow();
-      console.log("Wovencrafts loaded - all social links updated");
-    }
+    // Touch/swipe for hero slider
+    (function() {
+      let sx = 0, sy = 0;
+      const hero = document.getElementById('hero');
+      hero.addEventListener('touchstart', e => { sx = e.changedTouches[0].screenX; sy = e.changedTouches[0].screenY; }, { passive: true });
+      hero.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].screenX - sx;
+        const dy = e.changedTouches[0].screenY - sy;
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+          if (dx < 0) nextSlide(); else prevSlide();
+          clearInterval(slideInterval); slideInterval = setInterval(nextSlide, 5000);
+        }
+      }, { passive: true });
+    })();
 
-    window.onload = init;
+    // Touch/swipe for quick-view modal images
+    (function() {
+      let tx = 0;
+      const mw = document.getElementById('quickview-modal');
+      mw.addEventListener('touchstart', e => { tx = e.changedTouches[0].screenX; }, { passive: true });
+      mw.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].screenX - tx;
+        if (Math.abs(dx) > 40) { if (dx < 0) nextModalImage(); else prevModalImage(); }
+      }, { passive: true });
+    })();
   </script>
 </body>
-
 </html>
-
-
