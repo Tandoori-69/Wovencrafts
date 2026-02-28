@@ -16,7 +16,7 @@
     .hero-slide { transition: opacity 1.2s ease-in-out; }
     .product-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
     .product-card:hover { transform: translateY(-12px); box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
-    
+
     .nav-link { position: relative; }
     .nav-link:after { content: ''; position: absolute; width: 0; height: 2px; bottom: -2px; left: 0; background-color: #b45309; transition: width 0.3s; }
     .nav-link:hover:after { width: 100%; }
@@ -29,11 +29,11 @@
 
     #hero-dots { 
       position: absolute; 
-      bottom: 32px; 
+      bottom: 24px; 
       left: 50%; 
       transform: translateX(-50%); 
       display: flex; 
-      gap: 12px; 
+      gap: 10px; 
       z-index: 10; 
     }
 
@@ -51,9 +51,12 @@
     .modal-image-wrapper {
       position: relative;
       flex: 1;
-      min-height: 400px;
-      max-height: 80vh;
+      min-height: 220px;
+      max-height: 50vh;
       overflow: hidden;
+    }
+    @media (min-width: 768px) {
+      .modal-image-wrapper { min-height: 400px; max-height: 80vh; }
     }
     .modal-slide {
       position: absolute;
@@ -66,7 +69,7 @@
     .modal-slide.active { opacity: 1; }
     #modal-dots {
       position: absolute;
-      bottom: 20px;
+      bottom: 16px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -88,30 +91,17 @@
     }
 
     /* Mobile-specific styles */
-    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
-
     @media (max-width: 767px) {
       .product-card:hover { transform: none; box-shadow: 0 1px 3px rgb(0 0 0 / 0.1); }
-      .modal-image-wrapper { min-height: 250px; max-height: 45vh; }
-      /* Hide scrollbar for review cards */
+      .product-card:active { transform: scale(0.98); }
       #reviews .flex::-webkit-scrollbar { display: none; }
       #reviews .flex { -ms-overflow-style: none; scrollbar-width: none; }
-      /* Mobile search suggestions */
-      #mobile-search-suggestions {
-        position: absolute; top: 100%; left: 0; right: 0; max-height: 300px; overflow-y: auto;
-        background: white; border: 1px solid #d1d5db; border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15);
-        z-index: 50; margin-top: 8px; display: none;
-      }
-      #mobile-search-suggestions .suggestion-item { display: flex; align-items: center; gap: 12px; padding: 10px 16px; cursor: pointer; transition: background 0.15s; }
-      #mobile-search-suggestions .suggestion-item:hover { background: #f3f4f6; }
     }
 
     @media (hover: none) and (pointer: coarse) {
       .product-card:hover { transform: none; box-shadow: 0 1px 3px rgb(0 0 0 / 0.1); }
-      .product-card:active { transform: scale(0.98); }
     }
 
-    /* Text truncation utility */
     .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   </style>
 </head>
@@ -119,7 +109,7 @@
 
   <!-- NAVBAR -->
   <nav class="bg-white shadow-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="flex justify-between items-center h-16 md:h-20">
         <div onclick="window.location.reload()" class="flex items-center gap-2 md:gap-3 cursor-pointer">
           <i class="fa-solid fa-rug text-2xl md:text-4xl text-amber-800"></i>
@@ -134,9 +124,9 @@
         </div>
 
         <div class="flex items-center gap-4 md:gap-8 relative">
-          <div class="relative hidden md:block w-80">
+          <div class="relative hidden md:block w-72 lg:w-80">
             <input id="search-input" type="text" placeholder="Search kilims, rugs, cushions..." 
-                   class="w-full bg-zinc-100 border border-transparent focus:border-amber-700 focus:bg-white pl-11 py-3 rounded-3xl text-sm outline-none transition-all"/>
+                   class="w-full bg-zinc-100 border border-transparent focus:border-amber-700 focus:bg-white pl-10 py-3 rounded-3xl text-sm outline-none transition-all"/>
             <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none"></i>
             <div id="search-suggestions" class="hidden"></div>
           </div>
@@ -154,62 +144,62 @@
     </div>
 
     <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
-      <div class="px-6 py-6 flex flex-col gap-5 text-lg">
+      <div class="px-5 py-6 flex flex-col gap-5 text-lg">
         <div class="relative">
           <input id="mobile-search-input" type="text" placeholder="Search kilims, rugs, cushions..."
-                 class="w-full bg-zinc-100 border border-transparent focus:border-amber-700 focus:bg-white pl-11 py-3 rounded-3xl text-sm outline-none transition-all"/>
+                 class="w-full bg-zinc-100 border border-transparent focus:border-amber-700 focus:bg-white pl-10 py-3.5 rounded-3xl text-sm outline-none transition-all"/>
           <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none"></i>
           <div id="mobile-search-suggestions" class="hidden"></div>
         </div>
-        <a href="#shop" onclick="toggleMobileMenu();smoothScrollTo('shop')" class="nav-link py-2">Shop</a>
-        <a href="#collections" onclick="toggleMobileMenu();smoothScrollTo('collections')" class="nav-link py-2">Collections</a>
-        <a href="#reviews" onclick="toggleMobileMenu();smoothScrollTo('reviews')" class="nav-link py-2">Reviews</a>
-        <a href="#about" onclick="toggleMobileMenu();smoothScrollTo('about')" class="nav-link py-2">About</a>
+        <a href="#shop" onclick="toggleMobileMenu();smoothScrollTo('shop')" class="nav-link py-2.5">Shop</a>
+        <a href="#collections" onclick="toggleMobileMenu();smoothScrollTo('collections')" class="nav-link py-2.5">Collections</a>
+        <a href="#reviews" onclick="toggleMobileMenu();smoothScrollTo('reviews')" class="nav-link py-2.5">Reviews</a>
+        <a href="#about" onclick="toggleMobileMenu();smoothScrollTo('about')" class="nav-link py-2.5">About</a>
       </div>
     </div>
   </nav>
 
   <!-- HERO -->
-  <div id="hero" class="relative h-[85vh] md:h-screen overflow-hidden"></div>
+  <div id="hero" class="relative h-[65vh] sm:h-[75vh] md:h-screen overflow-hidden"></div>
 
   <!-- COLLECTIONS -->
-  <section id="collections" class="max-w-7xl mx-auto px-4 md:px-6 py-14 md:py-24">
+  <section id="collections" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-24">
     <div class="text-center mb-8 md:mb-12">
       <h2 class="text-3xl md:text-5xl font-bold tracking-tight">Our Collections</h2>
-      <p class="text-zinc-500 mt-2 md:mt-3 text-sm md:text-base">Authentic Afghani & Pakistani handwoven treasures</p>
+      <p class="text-zinc-500 mt-2 text-sm md:text-base">Authentic Afghani & Pakistani handwoven treasures</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
-      <div onclick="filterByCategory('Afghani')" class="group cursor-pointer relative rounded-2xl md:rounded-3xl overflow-hidden h-60 md:h-96">
+      <div onclick="filterByCategory('Afghani')" class="group cursor-pointer relative rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden h-64 sm:h-80 md:h-96 min-h-[16rem]">
         <img src="https://picsum.photos/id/29/1200/800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-        <div class="absolute bottom-6 left-6 md:bottom-10 md:left-10 text-white">
-          <h3 class="text-3xl md:text-5xl font-bold tracking-tight">Afghani</h3>
-          <p class="text-sm md:text-xl mt-1 md:mt-2">Mountain wool & silk kilims, rugs, cushions & more</p>
+        <div class="absolute bottom-6 left-5 sm:bottom-8 sm:left-8 md:bottom-10 md:left-10 text-white">
+          <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">Afghani</h3>
+          <p class="text-sm sm:text-base md:text-xl mt-1 md:mt-2">Mountain wool & silk kilims, rugs, cushions & more</p>
         </div>
       </div>
-      <div onclick="filterByCategory('Pakistani')" class="group cursor-pointer relative rounded-2xl md:rounded-3xl overflow-hidden h-60 md:h-96">
+      <div onclick="filterByCategory('Pakistani')" class="group cursor-pointer relative rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden h-64 sm:h-80 md:h-96 min-h-[16rem]">
         <img src="https://picsum.photos/id/201/1200/800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-        <div class="absolute bottom-6 left-6 md:bottom-10 md:left-10 text-white">
-          <h3 class="text-3xl md:text-5xl font-bold tracking-tight">Pakistani</h3>
-          <p class="text-sm md:text-xl mt-1 md:mt-2">Punjab hand-knotted rugs, runners, jaye namaz & more</p>
+        <div class="absolute bottom-6 left-5 sm:bottom-8 sm:left-8 md:bottom-10 md:left-10 text-white">
+          <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">Pakistani</h3>
+          <p class="text-sm sm:text-base md:text-xl mt-1 md:mt-2">Punjab hand-knotted rugs, runners, jaye namaz & more</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- SHOP -->
-  <section id="shop" class="bg-white py-14 md:py-20">
-    <div class="max-w-7xl mx-auto px-4 md:px-6">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-6 mb-8 md:mb-10">
+  <section id="shop" class="bg-white py-12 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col gap-5 md:flex-row md:justify-between md:items-center mb-8 md:mb-10">
         <h2 class="text-3xl md:text-5xl font-bold tracking-tight">All Products</h2>
-        <div class="flex flex-wrap gap-2 md:gap-4 w-full md:w-auto">
-          <select id="category-filter" onchange="filterProducts()" class="bg-zinc-100 border border-zinc-300 px-4 md:px-6 py-2.5 md:py-3 rounded-3xl text-sm flex-1 md:flex-none min-w-0">
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full md:w-auto">
+          <select id="category-filter" onchange="filterProducts()" class="bg-zinc-100 border border-zinc-300 px-4 py-3 rounded-3xl text-sm w-full sm:w-auto min-w-0">
             <option value="All">All Materials</option>
             <option value="Afghani">Afghani</option>
             <option value="Pakistani">Pakistani</option>
           </select>
-          <select id="type-filter" onchange="filterProducts()" class="bg-zinc-100 border border-zinc-300 px-4 md:px-6 py-2.5 md:py-3 rounded-3xl text-sm flex-1 md:flex-none min-w-0">
+          <select id="type-filter" onchange="filterProducts()" class="bg-zinc-100 border border-zinc-300 px-4 py-3 rounded-3xl text-sm w-full sm:w-auto min-w-0">
             <option value="All">All Types</option>
             <option value="Kilim">Kilims</option>
             <option value="Doormat">Doormats</option>
@@ -221,58 +211,58 @@
             <option value="Tote Bag">Tote Bags</option>
             <option value="Jaye Namaz">Jaye Namaz</option>
           </select>
-          <select id="sort-filter" onchange="filterProducts()" class="bg-zinc-100 border border-zinc-300 px-4 md:px-6 py-2.5 md:py-3 rounded-3xl text-sm flex-1 md:flex-none min-w-0">
+          <select id="sort-filter" onchange="filterProducts()" class="bg-zinc-100 border border-zinc-300 px-4 py-3 rounded-3xl text-sm w-full sm:w-auto min-w-0">
             <option value="default">Sort: Featured</option>
             <option value="price-low">Price: Low to High</option>
             <option value="price-high">Price: High to Low</option>
           </select>
         </div>
       </div>
-      <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8"></div>
+      <div id="products-grid" class="grid grid-cols-2 gap-4 sm:gap-6 md:gap-8"></div>
     </div>
   </section>
 
   <!-- REVIEWS -->
-  <section id="reviews" class="max-w-7xl mx-auto px-4 md:px-6 py-14 md:py-24 bg-zinc-100">
+  <section id="reviews" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-24 bg-zinc-100">
     <div class="text-center mb-8 md:mb-12">
       <h2 class="text-3xl md:text-5xl font-bold tracking-tight">What Our Customers Say</h2>
     </div>
-    <div class="flex md:grid md:grid-cols-3 gap-4 md:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0">
-      <div class="bg-white p-6 md:p-8 rounded-2xl md:rounded-3xl shadow min-w-[280px] md:min-w-0 snap-start">
+    <div class="flex md:grid md:grid-cols-3 gap-4 md:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-6 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0">
+      <div class="bg-white p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl md:rounded-3xl shadow min-w-[300px] sm:min-w-[340px] md:min-w-0 snap-start">
         <div class="flex text-amber-700 mb-3 md:mb-4">★★★★★</div>
-        <p class="italic text-sm md:text-base">"The Afghani kilim is stunning! The quality is top-notch and it completely transformed my living room. Fast delivery too!"</p>
-        <p class="mt-4 md:mt-6 font-medium text-sm md:text-base">— Ayesha Khan, Lahore</p>
+        <p class="italic text-sm sm:text-base">"The Afghani kilim is stunning! The quality is top-notch and it completely transformed my living room. Fast delivery too!"</p>
+        <p class="mt-4 md:mt-6 font-medium text-sm sm:text-base">— Ayesha Khan, Lahore</p>
       </div>
-      <div class="bg-white p-6 md:p-8 rounded-2xl md:rounded-3xl shadow min-w-[280px] md:min-w-0 snap-start">
+      <div class="bg-white p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl md:rounded-3xl shadow min-w-[300px] sm:min-w-[340px] md:min-w-0 snap-start">
         <div class="flex text-amber-700 mb-3 md:mb-4">★★★★☆</div>
-        <p class="italic text-sm md:text-base">"Bought the Pakistani jaye namaz for my parents. The fabric is so soft and the design is beautiful. They loved it!"</p>
-        <p class="mt-4 md:mt-6 font-medium text-sm md:text-base">— Bilal Ahmed, Karachi</p>
+        <p class="italic text-sm sm:text-base">"Bought the Pakistani jaye namaz for my parents. The fabric is so soft and the design is beautiful. They loved it!"</p>
+        <p class="mt-4 md:mt-6 font-medium text-sm sm:text-base">— Bilal Ahmed, Karachi</p>
       </div>
-      <div class="bg-white p-6 md:p-8 rounded-2xl md:rounded-3xl shadow min-w-[280px] md:min-w-0 snap-start">
+      <div class="bg-white p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl md:rounded-3xl shadow min-w-[300px] sm:min-w-[340px] md:min-w-0 snap-start">
         <div class="flex text-amber-700 mb-3 md:mb-4">★★★★★</div>
-        <p class="italic text-sm md:text-base">"Ordered a cushion set and a runner. Both arrived perfectly packed. The colors are exactly as shown. Highly recommend!"</p>
-        <p class="mt-4 md:mt-6 font-medium text-sm md:text-base">— Sara Malik, Islamabad</p>
+        <p class="italic text-sm sm:text-base">"Ordered a cushion set and a runner. Both arrived perfectly packed. The colors are exactly as shown. Highly recommend!"</p>
+        <p class="mt-4 md:mt-6 font-medium text-sm sm:text-base">— Sara Malik, Islamabad</p>
       </div>
-      <div class="bg-white p-6 md:p-8 rounded-2xl md:rounded-3xl shadow min-w-[280px] md:min-w-0 snap-start">
+      <div class="bg-white p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl md:rounded-3xl shadow min-w-[300px] sm:min-w-[340px] md:min-w-0 snap-start">
         <div class="flex text-amber-700 mb-3 md:mb-4">★★★★★</div>
-        <p class="italic text-sm md:text-base">"The tote bag is my daily go-to now. Sturdy, beautiful pattern, and everyone asks where I got it from!"</p>
-        <p class="mt-4 md:mt-6 font-medium text-sm md:text-base">— Hassan Raza, Peshawar</p>
+        <p class="italic text-sm sm:text-base">"The tote bag is my daily go-to now. Sturdy, beautiful pattern, and everyone asks where I got it from!"</p>
+        <p class="mt-4 md:mt-6 font-medium text-sm sm:text-base">— Hassan Raza, Peshawar</p>
       </div>
-      <div class="bg-white p-6 md:p-8 rounded-2xl md:rounded-3xl shadow min-w-[280px] md:min-w-0 snap-start">
+      <div class="bg-white p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl md:rounded-3xl shadow min-w-[300px] sm:min-w-[340px] md:min-w-0 snap-start">
         <div class="flex text-amber-700 mb-3 md:mb-4">★★★★☆</div>
-        <p class="italic text-sm md:text-base">"Perfect round mat for my prayer corner. Feels premium and looks elegant. Will buy more soon."</p>
-        <p class="mt-4 md:mt-6 font-medium text-sm md:text-base">— Fatima Noor, Quetta</p>
+        <p class="italic text-sm sm:text-base">"Perfect round mat for my prayer corner. Feels premium and looks elegant. Will buy more soon."</p>
+        <p class="mt-4 md:mt-6 font-medium text-sm sm:text-base">— Fatima Noor, Quetta</p>
       </div>
-      <div class="bg-white p-6 md:p-8 rounded-2xl md:rounded-3xl shadow min-w-[280px] md:min-w-0 snap-start">
+      <div class="bg-white p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl md:rounded-3xl shadow min-w-[300px] sm:min-w-[340px] md:min-w-0 snap-start">
         <div class="flex text-amber-700 mb-3 md:mb-4">★★★★★</div>
-        <p class="italic text-sm md:text-base">"Just received my Afghani runner — the wool is so thick and soft! Looks even better in person than online. Very happy customer."</p>
-        <p class="mt-4 md:mt-6 font-medium text-sm md:text-base">— Usman Ali, Rawalpindi</p>
+        <p class="italic text-sm sm:text-base">"Just received my Afghani runner — the wool is so thick and soft! Looks even better in person than online. Very happy customer."</p>
+        <p class="mt-4 md:mt-6 font-medium text-sm sm:text-base">— Usman Ali, Rawalpindi</p>
       </div>
     </div>
   </section>
 
   <!-- ABOUT -->
-  <section id="about" class="max-w-7xl mx-auto px-4 md:px-6 py-14 md:py-24">
+  <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-24">
     <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
       <div>
         <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4 md:mb-6">Handwoven with Love Since 2018</h2>
@@ -288,15 +278,15 @@
           We believe your home should feel warm, authentic, and full of soul. That’s why we ship worldwide with care and love.
         </p>
       </div>
-      <div class="rounded-2xl md:rounded-3xl overflow-hidden">
+      <div class="rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden">
         <img src="https://picsum.photos/id/1016/800/600" class="w-full" alt="Artisans at work">
       </div>
     </div>
   </section>
 
-  <!-- FOOTER - updated with all 5 social links -->
+  <!-- FOOTER -->
   <footer class="bg-zinc-900 text-white py-10 md:py-16">
-    <div class="max-w-7xl mx-auto px-4 md:px-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
         <div class="col-span-2 md:col-span-1">
           <div class="flex items-center gap-3 text-2xl md:text-3xl mb-4 md:mb-6">
@@ -347,15 +337,15 @@
 
   <!-- QUICK VIEW MODAL -->
   <div id="quickview-modal" class="hidden fixed inset-0 bg-black/70 z-[999] flex items-end md:items-center justify-center md:p-4">
-    <div class="modal bg-white w-full md:max-w-5xl md:rounded-3xl overflow-hidden max-h-[92vh] md:max-h-[95vh] flex flex-col lg:flex-row rounded-t-2xl">
+    <div class="modal bg-white w-full md:max-w-5xl md:rounded-3xl overflow-hidden max-h-[92vh] md:max-h-[95vh] flex flex-col lg:flex-row rounded-t-3xl md:rounded-3xl">
       <div class="modal-image-wrapper lg:w-3/5 relative">
         <div id="modal-image-container"></div>
-        <button onclick="prevModalImage()" class="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-9 h-9 md:w-11 md:h-11 bg-white/70 backdrop-blur rounded-full flex items-center justify-center text-lg md:text-xl shadow hover:bg-white"><i class="fa-solid fa-chevron-left"></i></button>
-        <button onclick="nextModalImage()" class="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 w-9 h-9 md:w-11 md:h-11 bg-white/70 backdrop-blur rounded-full flex items-center justify-center text-lg md:text-xl shadow hover:bg-white"><i class="fa-solid fa-chevron-right"></i></button>
+        <button onclick="prevModalImage()" class="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-11 md:h-11 bg-white/70 backdrop-blur rounded-full flex items-center justify-center text-lg md:text-xl shadow hover:bg-white"><i class="fa-solid fa-chevron-left"></i></button>
+        <button onclick="nextModalImage()" class="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-11 md:h-11 bg-white/70 backdrop-blur rounded-full flex items-center justify-center text-lg md:text-xl shadow hover:bg-white"><i class="fa-solid fa-chevron-right"></i></button>
         <div id="modal-dots"></div>
       </div>
 
-      <div class="lg:w-2/5 p-5 md:p-8 lg:p-12 flex flex-col">
+      <div class="lg:w-2/5 p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col">
         <div class="flex justify-between items-start mb-4 md:mb-6">
           <div>
             <h3 id="modal-name" class="text-2xl md:text-3xl font-semibold"></h3>
@@ -363,7 +353,7 @@
           </div>
           <button onclick="closeQuickView()" class="text-3xl md:text-4xl leading-none text-zinc-500 hover:text-black ml-4">×</button>
         </div>
-        <p id="modal-price" class="text-3xl md:text-4xl font-bold mb-6 md:mb-10"></p>
+        <p id="modal-price" class="text-3xl md:text-4xl font-bold mb-5 md:mb-10"></p>
         <div class="flex-1 overflow-y-auto">
           <p class="font-semibold mb-3 md:mb-4 text-base md:text-lg">Description</p>
           <p id="modal-desc" class="text-zinc-600 leading-relaxed text-sm md:text-base"></p>
@@ -450,48 +440,40 @@
     let slideInterval;
 
     // Hero slideshow
-   function renderHero() {
-  const hero = document.getElementById('hero');
-  hero.innerHTML = heroSlides.map((slide, i) => `
-    <div id="slide-${i}" class="hero-slide absolute inset-0 bg-cover bg-center flex items-center justify-center text-center" style="background-image: url('${slide.img}'); opacity: ${i===0 ? '1' : '0'}">
-      <div class="max-w-4xl px-6 text-white">
-        <h1 class="text-3xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-tight mb-3 md:mb-4">${slide.title}</h1>
-        <p class="text-base sm:text-xl md:text-2xl mb-6 md:mb-8">${slide.subtitle}</p>
-        <button onclick="smoothScrollTo('shop')" class="bg-white text-amber-900 hover:bg-amber-100 px-8 sm:px-12 py-3.5 sm:py-5 rounded-3xl text-base sm:text-xl font-semibold">Shop Now</button>
-      </div>
-    </div>
-  `).join('') + `
-    <div class="absolute inset-0 flex items-center justify-between px-5 md:px-10 z-10 pointer-events-none">
-      <button 
-        onclick="prevSlide()" 
-        class="pointer-events-auto w-12 h-12 md:w-14 md:h-14 bg-white/30 backdrop-blur-md hover:bg-white/50 text-white rounded-full flex items-center justify-center shadow transition-all hover:scale-110 active:scale-95"
-      >
-        <i class="fa-solid fa-chevron-left text-xl md:text-2xl"></i>
-      </button>
-      
-      <button 
-        onclick="nextSlide()" 
-        class="pointer-events-auto w-12 h-12 md:w-14 md:h-14 bg-white/30 backdrop-blur-md hover:bg-white/50 text-white rounded-full flex items-center justify-center shadow transition-all hover:scale-110 active:scale-95"
-      >
-        <i class="fa-solid fa-chevron-right text-xl md:text-2xl"></i>
-      </button>
-    </div>
+    function renderHero() {
+      const hero = document.getElementById('hero');
+      hero.innerHTML = heroSlides.map((slide, i) => `
+        <div id="slide-${i}" class="hero-slide absolute inset-0 bg-cover bg-center flex items-center justify-center text-center" style="background-image: url('${slide.img}'); opacity: ${i===0 ? '1' : '0'}">
+          <div class="max-w-4xl px-5 sm:px-6 text-white">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-tight mb-3 md:mb-5">${slide.title}</h1>
+            <p class="text-lg sm:text-xl md:text-2xl mb-5 md:mb-8">${slide.subtitle}</p>
+            <button onclick="smoothScrollTo('shop')" class="bg-white text-amber-900 hover:bg-amber-100 px-7 sm:px-10 py-3 sm:py-4 rounded-3xl text-base sm:text-lg md:text-xl font-semibold">Shop Now</button>
+          </div>
+        </div>
+      `).join('') + `
+        <div class="absolute inset-0 flex items-center justify-between px-4 sm:px-6 md:px-10 z-10 pointer-events-none">
+          <button onclick="prevSlide()" class="pointer-events-auto w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white/30 backdrop-blur-md hover:bg-white/50 text-white rounded-full flex items-center justify-center shadow-md transition-all duration-200 hover:scale-110 active:scale-95">
+            <i class="fa-solid fa-chevron-left text-lg sm:text-xl md:text-2xl"></i>
+          </button>
+          <button onclick="nextSlide()" class="pointer-events-auto w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white/30 backdrop-blur-md hover:bg-white/50 text-white rounded-full flex items-center justify-center shadow-md transition-all duration-200 hover:scale-110 active:scale-95">
+            <i class="fa-solid fa-chevron-right text-lg sm:text-xl md:text-2xl"></i>
+          </button>
+        </div>
+        <div id="hero-dots" class="absolute bottom-4 sm:bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3 z-20"></div>
+      `;
 
-    <div id="hero-dots" class="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex gap-3 z-20"></div>
-  `;
-
-  const dots = document.getElementById('hero-dots');
-  dots.innerHTML = heroSlides.map((_, i) => `
-    <button onclick="goToSlide(${i})" class="w-3.5 h-3.5 rounded-full transition-all ${i===0 ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'}"></button>
-  `).join('');
-}
+      const dots = document.getElementById('hero-dots');
+      dots.innerHTML = heroSlides.map((_, i) => `
+        <button onclick="goToSlide(${i})" class="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full transition-all ${i===0 ? 'bg-white scale-125' : 'bg-white/60 hover:bg-white/90'}"></button>
+      `).join('');
+    }
 
     function showSlide(n) {
       currentSlide = (n + heroSlides.length) % heroSlides.length;
       document.querySelectorAll('[id^="slide-"]').forEach((el, i) => el.style.opacity = i === currentSlide ? '1' : '0');
       document.querySelectorAll('#hero-dots button').forEach((el, i) => {
         el.classList.toggle('bg-white', i === currentSlide);
-        el.classList.toggle('bg-white/50', i !== currentSlide);
+        el.classList.toggle('bg-white/60', i !== currentSlide);
         el.classList.toggle('scale-125', i === currentSlide);
       });
     }
@@ -513,18 +495,18 @@
     // Products render
     function renderProducts(filtered = products) {
       document.getElementById('products-grid').innerHTML = filtered.map(p => `
-        <div class="product-card bg-white rounded-2xl md:rounded-3xl overflow-hidden group cursor-pointer shadow-sm hover:shadow-xl" onclick="showQuickView(${p.id})">
+        <div class="product-card bg-white rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden group cursor-pointer shadow-sm hover:shadow-xl" onclick="showQuickView(${p.id})">
           <img src="${p.img}" class="w-full aspect-square object-cover transition-transform group-hover:scale-105 duration-500">
-          <div class="p-3 md:p-6">
-            <h3 class="font-semibold text-sm md:text-lg group-hover:text-amber-800 transition-colors line-clamp-2">${p.name}</h3>
-            <p class="text-amber-700 text-base md:text-xl font-bold mt-1 md:mt-2">Rs ${p.price.toLocaleString('en-PK')}</p>
-            <p class="text-xs md:text-sm text-zinc-500 mt-0.5 md:mt-1">${p.type}</p>
+          <div class="p-3 sm:p-4 md:p-6">
+            <h3 class="font-semibold text-sm sm:text-base md:text-lg group-hover:text-amber-800 transition-colors line-clamp-2">${p.name}</h3>
+            <p class="text-amber-700 text-base sm:text-lg md:text-xl font-bold mt-1 md:mt-2">Rs ${p.price.toLocaleString('en-PK')}</p>
+            <p class="text-xs sm:text-sm text-zinc-500 mt-0.5 md:mt-1">${p.type}</p>
           </div>
         </div>
       `).join('');
     }
 
-    // Search suggestions
+    // Search suggestions (desktop)
     const searchInput = document.getElementById('search-input');
     const suggestionsContainer = document.getElementById('search-suggestions');
 
@@ -535,10 +517,9 @@
         return;
       }
 
-      const singular = query.replace(/s$/, '');
       const matches = products.filter(p => {
         const text = (p.name + ' ' + p.type + ' ' + p.category).toLowerCase();
-        return text.includes(query) || text.includes(singular);
+        return text.includes(query);
       }).slice(0, 8);
 
       suggestionsContainer.innerHTML = matches.map(p => `
@@ -561,16 +542,6 @@
     }
 
     searchInput.addEventListener('input', showSuggestions);
-    document.addEventListener('click', e => {
-      if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
-        suggestionsContainer.style.display = 'none';
-      }
-      const mobileSugg = document.getElementById('mobile-search-suggestions');
-      const mobileInput = document.getElementById('mobile-search-input');
-      if (mobileInput && mobileSugg && !mobileInput.contains(e.target) && !mobileSugg.contains(e.target)) {
-        mobileSugg.style.display = 'none';
-      }
-    });
 
     // Mobile search
     const mobileSearchInput = document.getElementById('mobile-search-input');
@@ -582,10 +553,10 @@
         mobileSuggestionsContainer.style.display = 'none';
         return;
       }
-      const singular = query.replace(/s$/, '');
+
       const matches = products.filter(p => {
         const text = (p.name + ' ' + p.type + ' ' + p.category).toLowerCase();
-        return text.includes(query) || text.includes(singular);
+        return text.includes(query);
       }).slice(0, 6);
 
       mobileSuggestionsContainer.innerHTML = matches.map(p => `
@@ -610,6 +581,15 @@
 
     mobileSearchInput.addEventListener('input', showMobileSuggestions);
 
+    document.addEventListener('click', e => {
+      if (!searchInput?.contains(e.target) && !suggestionsContainer?.contains(e.target)) {
+        suggestionsContainer.style.display = 'none';
+      }
+      if (!mobileSearchInput?.contains(e.target) && !mobileSuggestionsContainer?.contains(e.target)) {
+        mobileSuggestionsContainer.style.display = 'none';
+      }
+    });
+
     // Quick view
     function showQuickView(id) {
       currentProduct = products.find(p => p.id === id);
@@ -623,23 +603,22 @@
         `https://picsum.photos/id/${base+2}/800/800`
       ];
 
-      let slidesHTML = modalImages.map((src, i) => `
+      document.getElementById('modal-image-container').innerHTML = modalImages.map((src, i) => `
         <div class="modal-slide ${i===0 ? 'active' : ''}" style="background-image:url('${src}')"></div>
       `).join('');
-      document.getElementById('modal-image-container').innerHTML = slidesHTML;
 
-      let dotsHTML = modalImages.map((_, i) => `
+      document.getElementById('modal-dots').innerHTML = modalImages.map((_, i) => `
         <button onclick="goToModalSlide(${i})" class="${i===0 ? 'active' : ''}"></button>
       `).join('');
-      document.getElementById('modal-dots').innerHTML = dotsHTML;
 
       document.getElementById('modal-name').textContent = currentProduct.name;
       document.getElementById('modal-category').textContent = `${currentProduct.category} • ${currentProduct.type}`;
       document.getElementById('modal-price').textContent = `Rs ${currentProduct.price.toLocaleString('en-PK')}`;
       document.getElementById('modal-desc').textContent = currentProduct.desc;
 
-      document.getElementById('quickview-modal').classList.remove('hidden');
-      document.getElementById('quickview-modal').classList.add('flex');
+      const modal = document.getElementById('quickview-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
       document.body.style.overflow = 'hidden';
     }
 
@@ -649,52 +628,60 @@
       document.querySelectorAll('#modal-dots button').forEach((el,i) => el.classList.toggle('active', i===n));
     }
 
-    function nextModalImage() { goToModalSlide((currentModalSlide + 1) % 3); }
-    function prevModalImage() { goToModalSlide((currentModalSlide + 2) % 3); }
+    function nextModalImage() { goToModalSlide((currentModalSlide + 1) % modalImages.length); }
+    function prevModalImage() { goToModalSlide((currentModalSlide - 1 + modalImages.length) % modalImages.length); }
 
     function closeQuickView() {
-      document.getElementById('quickview-modal').classList.remove('flex');
-      document.getElementById('quickview-modal').classList.add('hidden');
+      const modal = document.getElementById('quickview-modal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
       document.body.style.overflow = '';
     }
 
-    // Add to cart + success
+    // Cart functions
     function addCurrentToCart() {
       if (!currentProduct) return;
-      cart.push({...currentProduct, quantity: 1});
+      const existing = cart.find(item => item.id === currentProduct.id);
+      if (existing) {
+        existing.quantity = (existing.quantity || 1) + 1;
+      } else {
+        cart.push({...currentProduct, quantity: 1});
+      }
       updateCartCount();
-
-      document.getElementById('success-text').innerHTML = `
-        <strong>${currentProduct.name}</strong><br>has been added to your cart
-      `;
-      document.getElementById('success-modal').classList.remove('hidden');
-      document.getElementById('success-modal').classList.add('flex');
-
+      showSuccessModal(currentProduct.name);
       closeQuickView();
     }
 
+    function showSuccessModal(name) {
+      document.getElementById('success-text').innerHTML = `<strong>${name}</strong><br>has been added to your cart`;
+      const modal = document.getElementById('success-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
     function closeSuccessModal() {
-      document.getElementById('success-modal').classList.remove('flex');
-      document.getElementById('success-modal').classList.add('hidden');
+      const modal = document.getElementById('success-modal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
       document.body.style.overflow = '';
     }
 
-    // Cart
     function updateCartCount() {
-      document.getElementById('cart-count').textContent = cart.length;
+      document.getElementById('cart-count').textContent = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
     }
 
     function renderCart() {
       const container = document.getElementById('cart-items');
-      let html = '';
       let total = 0;
+      let html = '';
 
       cart.forEach((item, index) => {
         const qty = item.quantity || 1;
         const itemTotal = item.price * qty;
         total += itemTotal;
         html += `
-          <div class="flex gap-4 mb-8 pb-6 border-b last:border-0 last:pb-0">
+          <div class="flex gap-4 mb-6 pb-6 border-b last:border-0 last:pb-0">
             <img src="${item.img}" class="w-20 h-20 object-cover rounded-xl">
             <div class="flex-1">
               <h4 class="font-medium">${item.name}</h4>
@@ -708,7 +695,7 @@
             </div>
             <div class="text-right">
               <p class="font-semibold">Rs ${itemTotal.toLocaleString('en-PK')}</p>
-              <button onclick="removeFromCart(${index})" class="text-red-600 text-sm mt-6 hover:underline">Remove</button>
+              <button onclick="removeFromCart(${index})" class="text-red-600 text-sm mt-4 hover:underline">Remove</button>
             </div>
           </div>
         `;
@@ -722,6 +709,7 @@
       if (!cart[index]) return;
       cart[index].quantity = Math.max(1, (cart[index].quantity || 1) + delta);
       renderCart();
+      updateCartCount();
     }
 
     function removeFromCart(index) {
@@ -785,13 +773,10 @@
     function init() {
       renderProducts(products);
       startSlideshow();
-      console.log("Wovencrafts loaded - all social links updated");
+      updateCartCount();
     }
 
     window.onload = init;
   </script>
 </body>
 </html>
-
-
-
