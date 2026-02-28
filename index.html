@@ -61,7 +61,7 @@
         max-height: 80vh;
       }
     }
-   .modal-slide {
+.modal-slide {
   position: absolute;
   inset: 0;
   opacity: 0;
@@ -75,8 +75,7 @@
 .modal-slide img {
   width: 100%;
   height: 100%;
-  object-fit: contain;       /* ← key property: keeps proportions, no stretch */
-  /* You can also try: object-fit: cover; if you prefer cropping instead of letterboxing */
+  object-fit: contain;   /* or cover — try both */
 }
     }
     .modal-slide.active { opacity: 1; }
@@ -780,7 +779,7 @@
     currentModalSlide = 0;
 modalImages = currentProduct.images || [currentProduct.img, currentProduct.img, currentProduct.img];
 
-     document.getElementById('modal-image-container').innerHTML = modalImages.map((src, i) => `
+document.getElementById('modal-image-container').innerHTML = modalImages.map((src, i) => `
   <div class="modal-slide ${i===0 ? 'active' : ''}">
     <img src="${src}" alt="Product view ${i+1}">
   </div>
@@ -954,6 +953,7 @@ modalImages = currentProduct.images || [currentProduct.img, currentProduct.img, 
   </script>
 </body>
 </html>
+
 
 
 
