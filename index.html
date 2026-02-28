@@ -453,17 +453,25 @@
     function renderHero() {
       const hero = document.getElementById('hero');
       hero.innerHTML = heroSlides.map((slide, i) => `
-        <div id="slide-${i}" class="hero-slide absolute inset-0 bg-cover bg-center flex items-center justify-center text-center" style="background-image: url('${slide.img}'); opacity: ${i===0 ? '1' : '0'}">
-          <div class="max-w-4xl px-6 text-white">
-            <h1 class="text-3xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-tight mb-3 md:mb-4">${slide.title}</h1>
-            <p class="text-base sm:text-xl md:text-2xl mb-6 md:mb-8">${slide.subtitle}</p>
-            <button onclick="smoothScrollTo('shop')" class="bg-white text-amber-900 hover:bg-amber-100 px-8 sm:px-12 py-3.5 sm:py-5 rounded-3xl text-base sm:text-xl font-semibold">Shop Now</button>
-          </div>
-        </div>
-      `).join('') + `
-        <button onclick="prevSlide()" class="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 bg-white/30 backdrop-blur-md hover:bg-white/60 text-white rounded-full flex items-center justify-center transition-all duration-200 shadow-lg"><i class="fa-solid fa-chevron-left text-sm md:text-base"></i></button>
-        <button onclick="nextSlide()" class="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 bg-white/30 backdrop-blur-md hover:bg-white/60 text-white rounded-full flex items-center justify-center transition-all duration-200 shadow-lg"><i class="fa-solid fa-chevron-right text-sm md:text-base"></i></button>
-        <div id="hero-dots" class="flex gap-3"></div>`;
+       + `
+    <div class="absolute inset-0 flex items-center justify-between px-5 md:px-10 z-10 pointer-events-none">
+      <button 
+        onclick="prevSlide()" 
+        class="pointer-events-auto w-12 h-12 md:w-14 md:h-14 bg-white/25 backdrop-blur-md hover:bg-white/50 text-white rounded-full flex items-center justify-center shadow transition-all duration-200 hover:scale-110"
+      >
+        <i class="fa-solid fa-chevron-left md:text-2xl"></i>
+      </button>
+      
+      <button 
+        onclick="nextSlide()" 
+        class="pointer-events-auto w-12 h-12 md:w-14 md:h-14 bg-white/25 backdrop-blur-md hover:bg-white/50 text-white rounded-full flex items-center justify-center shadow transition-all duration-200 hover:scale-110"
+      >
+        <i class="fa-solid fa-chevron-right md:text-2xl"></i>
+      </button>
+    </div>
+
+    <div id="hero-dots" class="absolute bottom-32 sm:bottom-12 left-1/2 -translate-x-1/2 flex gap-3 z-10"></div>
+ `;
 
       const dots = document.getElementById('hero-dots');
       dots.innerHTML = heroSlides.map((_, i) => `
@@ -794,3 +802,4 @@
   </script>
 </body>
 </html>
+
