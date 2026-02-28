@@ -61,14 +61,15 @@
         max-height: 80vh;
       }
     }
-    .modal-slide {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      opacity: 0;
-      transition: opacity 0.6s;
-    }
+   .modal-slide {
+  position: absolute;
+  inset: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
     .modal-slide.active { opacity: 1; }
     #modal-dots {
       position: absolute;
@@ -943,6 +944,7 @@ modalImages = currentProduct.images || [currentProduct.img, currentProduct.img, 
   </script>
 </body>
 </html>
+
 
 
 
