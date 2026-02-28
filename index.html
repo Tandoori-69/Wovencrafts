@@ -769,11 +769,7 @@
 
      currentModalSlide = 0;
 const base = currentProduct.id * 10;
-modalImages = [
-  `https://picsum.photos/id/${base}/800/800`,
-  `https://picsum.photos/id/${base+1}/800/800`,
-  `https://picsum.photos/id/${base+2}/800/800`
-];
+modalImages = currentProduct.images || [currentProduct.img, currentProduct.img, currentProduct.img];
 
       document.getElementById('modal-image-container').innerHTML = modalImages.map((src, i) => `
         <div class="modal-slide ${i===0 ? 'active' : ''}" style="background-image:url('${src}')"></div>
@@ -947,5 +943,6 @@ modalImages = [
   </script>
 </body>
 </html>
+
 
 
