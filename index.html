@@ -452,8 +452,8 @@
     // Hero slideshow
     function renderHero() {
       const hero = document.getElementById('hero');
-      hero.innerHTML = heroSlides.map((slide, i) => `
-        <div class="absolute inset-0 flex items-center justify-between px-5 md:px-10 z-10 pointer-events-none">
+      hero.innerHTML = heroSlides.map((slide, i) => + `
+    <div class="absolute inset-0 flex items-center justify-between px-5 md:px-10 z-10 pointer-events-none">
       <button 
         onclick="prevSlide()" 
         class="pointer-events-auto w-12 h-12 md:w-14 md:h-14 bg-white/25 backdrop-blur-md hover:bg-white/50 text-white rounded-full flex items-center justify-center shadow transition-all duration-200 hover:scale-110"
@@ -470,8 +470,7 @@
     </div>
 
     <div id="hero-dots" class="absolute bottom-32 sm:bottom-12 left-1/2 -translate-x-1/2 flex gap-3 z-10"></div>
-';
-
+`;
       const dots = document.getElementById('hero-dots');
       dots.innerHTML = heroSlides.map((_, i) => `
         <button onclick="goToSlide(${i})" class="w-3.5 h-3.5 rounded-full transition-all ${i===0 ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'}"></button>
@@ -784,4 +783,5 @@
   </script>
 </body>
 </html>
+
 
