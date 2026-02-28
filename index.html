@@ -441,25 +441,168 @@
 
     // PRODUCTS (add all your items here)
     let products = [
-      {id:1,name:"Afghani Kilim Classic",category:"Afghani",type:"Kilim",price:14800,img:"https://picsum.photos/id/29/600/600",desc:"This timeless Afghani kilim features bold geometric patterns handwoven in pure mountain wool. Perfect for living rooms or as a statement piece. Durable, reversible, and full of character."},
-      {id:2,name:"Pakistani Kilim Tribal",category:"Pakistani",type:"Kilim",price:13500,img:"https://picsum.photos/id/30/600/600",desc:"Handwoven in Punjab with vibrant tribal motifs. Soft underfoot yet extremely tough. A beautiful blend of tradition and everyday comfort."},
-      {id:3,name:"Afghani Wool Doormat",category:"Afghani",type:"Doormat",price:8500,img:"https://picsum.photos/id/201/600/600",desc:"Heavy-duty welcome mat that traps dirt while looking stunning. Made from thick natural wool that lasts for years."},
-      {id:4,name:"Pakistani Coir Doormat",category:"Pakistani",type:"Doormat",price:7900,img:"https://picsum.photos/id/202/600/600",desc:"Natural coir fibre with stylish Pakistani border design. Eco-friendly and perfect for high-traffic entrances."},
-      {id:5,name:"Afghani Red Rug",category:"Afghani",type:"Rug",price:32500,img:"https://picsum.photos/id/251/600/600",desc:"Classic Bokhara style in rich red tones. Every knot tells a story of Afghan heritage. A true heirloom piece."},
-      {id:6,name:"Pakistani Gabbeh Rug",category:"Pakistani",type:"Rug",price:19800,img:"https://picsum.photos/id/252/600/600",desc:"Simple yet powerful tribal design from Hazro artisans. Thick pile that feels like walking on clouds."},
-      {id:7,name:"Afghani Long Runner",category:"Afghani",type:"Runner",price:16500,img:"https://picsum.photos/id/312/600/600",desc:"Elegant hallway runner that adds warmth and protection to your floors. Reversible for twice the life."},
-      {id:8,name:"Pakistani Silk Runner",category:"Pakistani",type:"Runner",price:22800,img:"https://picsum.photos/id/313/600/600",desc:"Luxury silk accents on soft wool base. Perfect for dining corridors or narrow spaces."},
-      {id:9,name:"Afghani Dining Set (2x3m)",category:"Afghani",type:"Dining Set",price:45200,img:"https://picsum.photos/id/866/600/600",desc:"Complete dining area coverage with beautiful medallion design. Protects your floor while elevating your space."},
-      {id:10,name:"Pakistani Dining Set",category:"Pakistani",type:"Dining Set",price:39800,img:"https://picsum.photos/id/867/600/600",desc:"Modern take on traditional patterns. Ideal for family gatherings and special occasions."},
-      {id:11,name:"Afghani Round Mat",category:"Afghani",type:"Round Mat",price:9200,img:"https://picsum.photos/id/1015/600/600",desc:"Beautiful circular accent piece for prayer corners, bedside or meditation spaces."},
-      {id:12,name:"Pakistani Round Jute Mat",category:"Pakistani",type:"Round Mat",price:7800,img:"https://picsum.photos/id/1016/600/600",desc:"Natural jute with elegant border. Adds texture and warmth to any room."},
-      {id:13,name:"Afghani Wool Cushion",category:"Afghani",type:"Cushion",price:4500,img:"https://picsum.photos/id/133/600/600",desc:"Set of two premium wool cushions. Soft, durable, and full of authentic tribal charm."},
-      {id:14,name:"Pakistani Silk Cushion",category:"Pakistani",type:"Cushion",price:5200,img:"https://picsum.photos/id/134/600/600",desc:"Luxury silk highlights on wool base. Perfect for sofas and beds."},
-      {id:15,name:"Afghani Canvas Tote Bag",category:"Afghani",type:"Tote Bag",price:3200,img:"https://picsum.photos/id/160/600/600",desc:"Everyday shopping companion with beautiful Afghan patterns. Strong and stylish."},
-      {id:16,name:"Pakistani Leather Tote",category:"Pakistani",type:"Tote Bag",price:4800,img:"https://picsum.photos/id/161/600/600",desc:"Premium leather accents on canvas. A fashion statement that lasts years."},
-      {id:17,name:"Afghani Jaye Namaz",category:"Afghani",type:"Jaye Namaz",price:11800,img:"https://picsum.photos/id/180/600/600",desc:"Travel-friendly prayer mat with built-in pocket. Compact yet luxurious."},
-      {id:18,name:"Pakistani Velvet Jaye Namaz",category:"Pakistani",type:"Jaye Namaz",price:9800,img:"https://picsum.photos/id/181/600/600",desc:"Rich velvet feel with intricate mihrab design. Perfect for daily home prayers."}
-    ];
+  {id:1, name:"Afghani Kilim Classic", category:"Afghani", type:"Kilim", price:14800,
+   img:"https://picsum.photos/id/29/600/600",
+   images: [
+     "https://example.com/afghani-kilim-1.jpg",    // ← change these 3
+     "https://example.com/afghani-kilim-2.jpg",
+     "https://example.com/afghani-kilim-3.jpg"
+   ],
+   desc:"This timeless Afghani kilim features bold geometric patterns handwoven in pure mountain wool. Perfect for living rooms or as a statement piece. Durable, reversible, and full of character."},
+
+  {id:2, name:"Pakistani Kilim Tribal", category:"Pakistani", type:"Kilim", price:13500,
+   img:"https://picsum.photos/id/30/600/600",
+   images: [
+     "https://example.com/pak-kilim-tribal-1.jpg",
+     "https://example.com/pak-kilim-tribal-2.jpg",
+     "https://example.com/pak-kilim-tribal-3.jpg"
+   ],
+   desc:"Handwoven in Punjab with vibrant tribal motifs. Soft underfoot yet extremely tough. A beautiful blend of tradition and everyday comfort."},
+
+  {id:3, name:"Afghani Wool Doormat", category:"Afghani", type:"Doormat", price:8500,
+   img:"https://picsum.photos/id/201/600/600",
+   images: [
+     "https://example.com/afg-doormat-wool-1.jpg",
+     "https://example.com/afg-doormat-wool-2.jpg",
+     "https://example.com/afg-doormat-wool-3.jpg"
+   ],
+   desc:"Heavy-duty welcome mat that traps dirt while looking stunning. Made from thick natural wool that lasts for years."},
+
+  {id:4, name:"Pakistani Coir Doormat", category:"Pakistani", type:"Doormat", price:7900,
+   img:"https://picsum.photos/id/202/600/600",
+   images: [
+     "https://example.com/pak-coir-doormat-1.jpg",
+     "https://example.com/pak-coir-doormat-2.jpg",
+     "https://example.com/pak-coir-doormat-3.jpg"
+   ],
+   desc:"Natural coir fibre with stylish Pakistani border design. Eco-friendly and perfect for high-traffic entrances."},
+
+  {id:5, name:"Afghani Red Rug", category:"Afghani", type:"Rug", price:32500,
+   img:"https://picsum.photos/id/251/600/600",
+   images: [
+     "https://example.com/afg-red-rug-1.jpg",
+     "https://example.com/afg-red-rug-2.jpg",
+     "https://example.com/afg-red-rug-3.jpg"
+   ],
+   desc:"Classic Bokhara style in rich red tones. Every knot tells a story of Afghan heritage. A true heirloom piece."},
+
+  {id:6, name:"Pakistani Gabbeh Rug", category:"Pakistani", type:"Rug", price:19800,
+   img:"https://picsum.photos/id/252/600/600",
+   images: [
+     "https://example.com/pak-gabbeh-rug-1.jpg",
+     "https://example.com/pak-gabbeh-rug-2.jpg",
+     "https://example.com/pak-gabbeh-rug-3.jpg"
+   ],
+   desc:"Simple yet powerful tribal design from Hazro artisans. Thick pile that feels like walking on clouds."},
+
+  {id:7, name:"Afghani Long Runner", category:"Afghani", type:"Runner", price:16500,
+   img:"https://picsum.photos/id/312/600/600",
+   images: [
+     "https://example.com/afg-long-runner-1.jpg",
+     "https://example.com/afg-long-runner-2.jpg",
+     "https://example.com/afg-long-runner-3.jpg"
+   ],
+   desc:"Elegant hallway runner that adds warmth and protection to your floors. Reversible for twice the life."},
+
+  {id:8, name:"Pakistani Silk Runner", category:"Pakistani", type:"Runner", price:22800,
+   img:"https://picsum.photos/id/313/600/600",
+   images: [
+     "https://example.com/pak-silk-runner-1.jpg",
+     "https://example.com/pak-silk-runner-2.jpg",
+     "https://example.com/pak-silk-runner-3.jpg"
+   ],
+   desc:"Luxury silk accents on soft wool base. Perfect for dining corridors or narrow spaces."},
+
+  {id:9, name:"Afghani Dining Set (2x3m)", category:"Afghani", type:"Dining Set", price:45200,
+   img:"https://picsum.photos/id/866/600/600",
+   images: [
+     "https://example.com/afg-dining-set-1.jpg",
+     "https://example.com/afg-dining-set-2.jpg",
+     "https://example.com/afg-dining-set-3.jpg"
+   ],
+   desc:"Complete dining area coverage with beautiful medallion design. Protects your floor while elevating your space."},
+
+  {id:10, name:"Pakistani Dining Set", category:"Pakistani", type:"Dining Set", price:39800,
+   img:"https://picsum.photos/id/867/600/600",
+   images: [
+     "https://example.com/pak-dining-set-1.jpg",
+     "https://example.com/pak-dining-set-2.jpg",
+     "https://example.com/pak-dining-set-3.jpg"
+   ],
+   desc:"Modern take on traditional patterns. Ideal for family gatherings and special occasions."},
+
+  {id:11, name:"Afghani Round Mat", category:"Afghani", type:"Round Mat", price:9200,
+   img:"https://picsum.photos/id/1015/600/600",
+   images: [
+     "https://example.com/afg-round-mat-1.jpg",
+     "https://example.com/afg-round-mat-2.jpg",
+     "https://example.com/afg-round-mat-3.jpg"
+   ],
+   desc:"Beautiful circular accent piece for prayer corners, bedside or meditation spaces."},
+
+  {id:12, name:"Pakistani Round Jute Mat", category:"Pakistani", type:"Round Mat", price:7800,
+   img:"https://picsum.photos/id/1016/600/600",
+   images: [
+     "https://example.com/pak-jute-round-1.jpg",
+     "https://example.com/pak-jute-round-2.jpg",
+     "https://example.com/pak-jute-round-3.jpg"
+   ],
+   desc:"Natural jute with elegant border. Adds texture and warmth to any room."},
+
+  {id:13, name:"Afghani Wool Cushion", category:"Afghani", type:"Cushion", price:4500,
+   img:"https://picsum.photos/id/133/600/600",
+   images: [
+     "https://example.com/afg-wool-cushion-1.jpg",
+     "https://example.com/afg-wool-cushion-2.jpg",
+     "https://example.com/afg-wool-cushion-3.jpg"
+   ],
+   desc:"Set of two premium wool cushions. Soft, durable, and full of authentic tribal charm."},
+
+  {id:14, name:"Pakistani Silk Cushion", category:"Pakistani", type:"Cushion", price:5200,
+   img:"https://picsum.photos/id/134/600/600",
+   images: [
+     "https://example.com/pak-silk-cushion-1.jpg",
+     "https://example.com/pak-silk-cushion-2.jpg",
+     "https://example.com/pak-silk-cushion-3.jpg"
+   ],
+   desc:"Luxury silk highlights on wool base. Perfect for sofas and beds."},
+
+  {id:15, name:"Afghani Canvas Tote Bag", category:"Afghani", type:"Tote Bag", price:3200,
+   img:"https://picsum.photos/id/160/600/600",
+   images: [
+     "https://example.com/afg-canvas-tote-1.jpg",
+     "https://example.com/afg-canvas-tote-2.jpg",
+     "https://example.com/afg-canvas-tote-3.jpg"
+   ],
+   desc:"Everyday shopping companion with beautiful Afghan patterns. Strong and stylish."},
+
+  {id:16, name:"Pakistani Leather Tote", category:"Pakistani", type:"Tote Bag", price:4800,
+   img:"https://picsum.photos/id/161/600/600",
+   images: [
+     "https://example.com/pak-leather-tote-1.jpg",
+     "https://example.com/pak-leather-tote-2.jpg",
+     "https://example.com/pak-leather-tote-3.jpg"
+   ],
+   desc:"Premium leather accents on canvas. A fashion statement that lasts years."},
+
+  {id:17, name:"Afghani Jaye Namaz", category:"Afghani", type:"Jaye Namaz", price:11800,
+   img:"https://picsum.photos/id/180/600/600",
+   images: [
+     "https://example.com/afg-jaye-namaz-1.jpg",
+     "https://example.com/afg-jaye-namaz-2.jpg",
+     "https://example.com/afg-jaye-namaz-3.jpg"
+   ],
+   desc:"Travel-friendly prayer mat with built-in pocket. Compact yet luxurious."},
+
+  {id:18, name:"Pakistani Velvet Jaye Namaz", category:"Pakistani", type:"Jaye Namaz", price:9800,
+   img:"https://picsum.photos/id/181/600/600",
+   images: [
+     "https://example.com/pak-velvet-jaye-1.jpg",
+     "https://example.com/pak-velvet-jaye-2.jpg",
+     "https://example.com/pak-velvet-jaye-3.jpg"
+   ],
+   desc:"Rich velvet feel with intricate mihrab design. Perfect for daily home prayers."}
+];
 
     let cart = [];
     let currentProduct = null;
@@ -624,13 +767,13 @@
       currentProduct = products.find(p => p.id === id);
       if (!currentProduct) return;
 
-      currentModalSlide = 0;
-      const base = currentProduct.id * 10;
-      modalImages = [
-        `https://picsum.photos/id/${base}/800/800`,
-        `https://picsum.photos/id/${base+1}/800/800`,
-        `https://picsum.photos/id/${base+2}/800/800`
-      ];
+     currentModalSlide = 0;
+const base = currentProduct.id * 10;
+modalImages = [
+  `https://picsum.photos/id/${base}/800/800`,
+  `https://picsum.photos/id/${base+1}/800/800`,
+  `https://picsum.photos/id/${base+2}/800/800`
+];
 
       document.getElementById('modal-image-container').innerHTML = modalImages.map((src, i) => `
         <div class="modal-slide ${i===0 ? 'active' : ''}" style="background-image:url('${src}')"></div>
@@ -804,3 +947,4 @@
   </script>
 </body>
 </html>
+
