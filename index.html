@@ -997,7 +997,7 @@ function handlePayment(method) {
 
     window.onload = init;
   </script>
-<div id="payment-modal" class="hidden fixed inset-0 bg-black/60 z-[1200]<!-- ORDER DETAILS MODAL -->
+<!-- ORDER DETAILS MODAL -->
 <div id="order-modal" class="hidden fixed inset-0 bg-black/60 z-[1200] flex items-center justify-center p-4">
   <div class="bg-white rounded-3xl w-full max-w-lg modal relative" style="max-height:92vh; overflow-y:auto;">
     <div class="p-6 md:p-8">
@@ -1028,7 +1028,10 @@ function handlePayment(method) {
       </button>
     </div>
   </div>
-</div> flex items-center justify-center p-4">
+</div>
+
+<!-- PAYMENT METHOD MODAL -->
+<div id="payment-modal" class="hidden fixed inset-0 bg-black/60 z-[1300] flex items-center justify-center p-4">
   <div class="bg-white rounded-3xl max-w-sm w-full p-8 text-center modal">
     <h3 class="text-2xl font-semibold mb-2">Choose Payment Method</h3>
     <p class="text-zinc-500 mb-8 text-sm">How would you like to pay?</p>
@@ -1056,6 +1059,7 @@ function handlePayment(method) {
 </div>
 </body>
 </html>
+
 
 
 
