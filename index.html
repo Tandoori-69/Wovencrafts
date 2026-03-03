@@ -820,9 +820,12 @@ modalImages = currentProduct.images || [currentProduct.img, currentProduct.img, 
     if (!currentProduct) return;
 const alreadyInCart = cart.find(item => item.id === currentProduct.id);
 if (alreadyInCart) {
-  alert(`"${currentProduct.name}" is already in your cart!`);
   closeQuickView();
+  document.getElementById('already-in-cart-name').textContent = currentProduct.name;
+  document.getElementById('already-in-cart-modal').classList.remove('hidden');
+  document.getElementById('already-in-cart-modal').classList.add('flex');
   return;
+}
 }
 cart.push({...currentProduct, quantity: 1});
       updateCartCount();
@@ -970,8 +973,22 @@ function handlePayment(method) {
         💵 Cash on Delivery
       </button>
     </div>
-<button onclick="closePaymentModal()" class="mt-6 text-sm text-zinc-400">Cancel</button></div></body>
+<button onclick="closePaymentModal()" class="mt-6 text-sm text-zinc-400">Cancel</button>
+  </div>
+<div id="already-in-cart-modal" class="hidden fixed inset-0 bg-black/60 z-[1200] flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-sm w-full p-8 text-center relative modal">
+    <button onclick="document.getElementById('already-in-cart-modal').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-400 hover:text-zinc-700 text-2xl">×</button>
+    <div class="w-16 h-16 mx-auto bg-amber-100 rounded-2xl flex items-center justify-center mb-4">
+      <i class="fa-solid fa-cart-shopping text-3xl text-amber-700"></i>
+    </div>
+    <h3 class="text-xl font-semibold mb-2">Already in Cart!</h3>
+    <p class="text-zinc-500 text-sm mb-6"><strong id="already-in-cart-name"></strong> is already in your cart.</p>
+    <button onclick="document.getElementById('already-in-cart-modal').classList.add('hidden')" class="w-full py-3.5 bg-amber-800 hover:bg-amber-900 transition-colors text-white rounded-3xl font-semibold">OK</button>
+  </div>
+</div>
+</body>
 </html>
+
 
 
 
