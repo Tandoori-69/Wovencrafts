@@ -918,8 +918,7 @@ function checkout() {
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(orderMap);
       orderMap = L.map('order-map').setView([30.12, 72.66], 13);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(orderMap);
-document.getElementById('map-search').addEventListener('keydown', e => { if (e.key === 'Enter') searchMapLocation(); });
-      orderMap.on('click', function(e) {
+initMapSearch();      orderMap.on('click', function(e) {
         if (orderMarker) orderMap.removeLayer(orderMarker);
         orderMarker = L.marker(e.latlng).addTo(orderMap);
         fetch(`https://nominatim.openstreetmap.org/reverse?lat=${e.latlng.lat}&lon=${e.latlng.lng}&format=json`)
@@ -931,16 +930,48 @@ document.getElementById('map-search').addEventListener('keydown', e => { if (e.k
     }
   }, 300);
 }
-function searchMapLocation() {
-  const query = document.getElementById('map-search').value.trim();
-  if (!query) return;
-  fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=1`)
-    .then(r => r.json())
-    .then(data => {
-      if (data.length === 0) return alert("Location not found, try a different search.");
-      const lat = parseFloat(data[0].lat);
-      const lon = parseFloat(data[0].lon);
-      orderMap.setView([lat, lon], 15);
+function searchMapLocation() {}
+
+function initMapSearch() {
+  const input = document.getElementById('map-search');
+  const suggestions = document.getElementById('map-suggestions');
+  let searchTimeout;
+
+  input.addEventListener('input', () => {
+    clearTimeout(searchTimeout);
+    const query = input.value.trim();
+    if (!query) { suggestions.style.display = 'none'; return; }
+
+    searchTimeout = setTimeout(() => {
+      fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=6`)
+        .then(r => r.json())
+        .then(data => {
+          if (!data.length) { suggestions.style.display = 'none'; return; }
+          suggestions.innerHTML = data.map((item, i) => `
+            <div onclick="selectMapSuggestion(${i})" data-lat="${item.lat}" data-lon="${item.lon}" data-name="${item.display_name}"
+              style="padding:10px 16px; cursor:pointer; font-size:13px; border-bottom:1px solid #f3f4f6; display:flex; align-items:center; gap:8px;">
+              📍 ${item.display_name}
+            </div>
+          `).join('');
+          suggestions.style.display = 'block';
+        });
+    }, 400);
+  });
+
+  document.addEventListener('click', e => {
+    if (!input.contains(e.target) && !suggestions.contains(e.target)) suggestions.style.display = 'none';
+  });
+}
+
+function selectMapSuggestion(index) {
+  const items = document.querySelectorAll('#map-suggestions div');
+  const item = items[index];
+  const lat = parseFloat(item.dataset.lat);
+  const lon = parseFloat(item.dataset.lon);
+  document.getElementById('map-search').value = item.dataset.name;
+  document.getElementById('map-suggestions').style.display = 'none';
+  orderMap.setView([lat, lon], 15);
+}
     });
 }
 function closeOrderModal() {
@@ -1030,9 +1061,9 @@ function handlePayment(method) {
         <div>
           <label class="text-sm font-medium text-zinc-700 mb-2 block">📍 Pin Your Location on the Map</label>
          <p class="text-xs text-zinc-400 mb-2">Search a area, then click the map to drop your pin</p>
-<div class="flex gap-2 mb-2">
-  <input id="map-search" type="text" placeholder="e.g. G-6 Islamabad" class="form-input"/>
-  <button onclick="searchMapLocation()" class="px-4 py-2 bg-amber-800 hover:bg-amber-900 text-white rounded-3xl text-sm font-semibold whitespace-nowrap">Search</button>
+<div class="relative mb-2">
+  <input id="map-search" type="text" placeholder="e.g. G-6 Islamabad" class="form-input" autocomplete="off"/>
+  <div id="map-suggestions" style="display:none; position:absolute; top:100%; left:0; right:0; background:white; border:1px solid #d1d5db; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.15); z-index:9999; max-height:200px; overflow-y:auto; margin-top:4px;"></div>
 </div>
 <div id="order-map"></div>
         </div>
@@ -1077,6 +1108,7 @@ function handlePayment(method) {
 </div>
 </body>
 </html>
+
 
 
 
