@@ -996,11 +996,12 @@ function closePaymentModal() {
   document.getElementById('payment-modal').classList.remove('flex');
   document.getElementById('payment-modal').classList.add('hidden');
 }
-    function confirmCOD() {
+function confirmCOD() {
   document.getElementById('cod-confirm-modal').classList.add('hidden');
+  document.getElementById('order-confirmed-modal').classList.remove('hidden');
+  document.getElementById('order-confirmed-modal').classList.add('flex');
   cart = [];
   updateCartCount();
-  toggleCart();
 }
 function handlePayment(method) {
   closePaymentModal();
@@ -1155,8 +1156,23 @@ function handlePayment(method) {
     </div>
   </div>
 </div>
+<div id="order-confirmed-modal" class="hidden fixed inset-0 bg-black/60 z-[1400] flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-sm w-full p-8 text-center relative modal">
+    <button onclick="document.getElementById('order-confirmed-modal').classList.add('hidden'); toggleCart()" class="absolute top-4 right-4 text-zinc-400 hover:text-zinc-700 text-2xl">×</button>
+    <div class="w-16 h-16 mx-auto bg-green-100 rounded-2xl flex items-center justify-center mb-4">
+      <i class="fa-solid fa-check text-3xl text-green-600"></i>
+    </div>
+    <h3 class="text-xl font-semibold mb-2">Order Confirmed! 🎉</h3>
+    <p class="text-zinc-500 text-sm mb-6">Your order has been placed! Please contact us on WhatsApp through the link below to confirm your delivery details.</p>
+    <a href="https://wa.me/923054290209" target="_blank" class="block w-full py-3.5 bg-green-500 hover:bg-green-600 transition-colors text-white rounded-3xl font-semibold mb-3">
+      <i class="fa-brands fa-whatsapp mr-2"></i> Contact on WhatsApp
+    </a>
+    <button onclick="document.getElementById('order-confirmed-modal').classList.add('hidden'); toggleCart()" class="w-full py-3.5 bg-zinc-100 hover:bg-zinc-200 transition-colors text-zinc-600 rounded-3xl font-semibold">Close</button>
+  </div>
+</div>
 </body>
 </html>
+
 
 
 
