@@ -916,9 +916,8 @@ function checkout() {
     if (!orderMap) {
       orderMap = L.map('order-map').setView([30.12, 72.66], 13);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(orderMap);
-      orderMap = L.map('order-map').setView([30.12, 72.66], 13);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(orderMap);
-initMapSearch();      orderMap.on('click', function(e) {
+      initMapSearch();
+      orderMap.on('click', function(e) {
         if (orderMarker) orderMap.removeLayer(orderMarker);
         orderMarker = L.marker(e.latlng).addTo(orderMap);
         fetch(`https://nominatim.openstreetmap.org/reverse?lat=${e.latlng.lat}&lon=${e.latlng.lng}&format=json`)
@@ -972,8 +971,7 @@ function selectMapSuggestion(index) {
   document.getElementById('map-suggestions').style.display = 'none';
   orderMap.setView([lat, lon], 15);
 }
-    });
-}
+ 
 function closeOrderModal() {
   document.getElementById('order-modal').classList.remove('flex');
   document.getElementById('order-modal').classList.add('hidden');
@@ -1108,6 +1106,7 @@ function handlePayment(method) {
 </div>
 </body>
 </html>
+
 
 
 
