@@ -909,8 +909,11 @@ function addCurrentToCart() {
     }
 
 function checkout() {
-  if (cart.length === 0) return alert("Your cart is empty!");
-  document.getElementById('order-modal').classList.remove('hidden');
+if (cart.length === 0) {
+  document.getElementById('empty-cart-modal').classList.remove('hidden');
+  document.getElementById('empty-cart-modal').classList.add('flex');
+  return;
+}  document.getElementById('order-modal').classList.remove('hidden');
   document.getElementById('order-modal').classList.add('flex');
   setTimeout(() => {
     if (!orderMap) {
@@ -1118,8 +1121,20 @@ function handlePayment(method) {
     <button onclick="document.getElementById('validation-modal').classList.add('hidden')" class="w-full py-3.5 bg-amber-800 hover:bg-amber-900 transition-colors text-white rounded-3xl font-semibold">OK</button>
   </div>
 </div>
+<div id="empty-cart-modal" class="hidden fixed inset-0 bg-black/60 z-[1400] flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-sm w-full p-8 text-center relative modal">
+    <button onclick="document.getElementById('empty-cart-modal').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-400 hover:text-zinc-700 text-2xl">×</button>
+    <div class="w-16 h-16 mx-auto bg-zinc-100 rounded-2xl flex items-center justify-center mb-4">
+      <i class="fa-solid fa-cart-shopping text-3xl text-zinc-400"></i>
+    </div>
+    <h3 class="text-xl font-semibold mb-2">Your Cart is Empty!</h3>
+    <p class="text-zinc-500 text-sm mb-6">Add some products to your cart before checking out.</p>
+    <button onclick="document.getElementById('empty-cart-modal').classList.add('hidden')" class="w-full py-3.5 bg-amber-800 hover:bg-amber-900 transition-colors text-white rounded-3xl font-semibold">OK</button>
+  </div>
+</div>
 </body>
 </html>
+
 
 
 
