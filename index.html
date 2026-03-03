@@ -817,8 +817,14 @@ modalImages = currentProduct.images || [currentProduct.img, currentProduct.img, 
 
     // Cart & add to cart
     function addCurrentToCart() {
-      if (!currentProduct) return;
-      cart.push({...currentProduct, quantity: 1});
+    if (!currentProduct) return;
+const alreadyInCart = cart.find(item => item.id === currentProduct.id);
+if (alreadyInCart) {
+  alert(`"${currentProduct.name}" is already in your cart!`);
+  closeQuickView();
+  return;
+}
+cart.push({...currentProduct, quantity: 1});
       updateCartCount();
 
       document.getElementById('success-text').innerHTML = `
@@ -856,11 +862,6 @@ modalImages = currentProduct.images || [currentProduct.img, currentProduct.img, 
               <h4 class="font-medium">${item.name}</h4>
               <p class="text-sm text-zinc-500">${item.type}</p>
               <p class="font-bold text-amber-700 mt-1">Rs ${item.price.toLocaleString('en-PK')}</p>
-              <div class="flex items-center gap-4 mt-3">
-                <button onclick="changeQuantity(${index}, -1)" class="w-8 h-8 border rounded-lg flex items-center justify-center hover:bg-zinc-100">-</button>
-                <span class="font-medium">${qty}</span>
-                <button onclick="changeQuantity(${index}, 1)" class="w-8 h-8 border rounded-lg flex items-center justify-center hover:bg-zinc-100">+</button>
-              </div>
             </div>
             <div class="text-right">
               <p class="font-semibold">Rs ${itemTotal.toLocaleString('en-PK')}</p>
@@ -971,6 +972,7 @@ function handlePayment(method) {
     </div>
 <button onclick="closePaymentModal()" class="mt-6 text-sm text-zinc-400">Cancel</button></div></body>
 </html>
+
 
 
 
