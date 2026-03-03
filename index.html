@@ -996,12 +996,21 @@ function closePaymentModal() {
   document.getElementById('payment-modal').classList.remove('flex');
   document.getElementById('payment-modal').classList.add('hidden');
 }
+    function confirmCOD() {
+  document.getElementById('cod-confirm-modal').classList.add('hidden');
+  cart = [];
+  updateCartCount();
+  toggleCart();
+}
 function handlePayment(method) {
   closePaymentModal();
-  if (method === 'card') {
+ if (method === 'card') {
     alert("Redirecting to card payment...");
   } else {
-    alert("Order placed! Cash on Delivery selected.");
+    closePaymentModal();
+    document.getElementById('cod-confirm-modal').classList.remove('hidden');
+    document.getElementById('cod-confirm-modal').classList.add('flex');
+    return;
   }
   cart = [];
   updateCartCount();
@@ -1132,8 +1141,23 @@ function handlePayment(method) {
     <button onclick="document.getElementById('empty-cart-modal').classList.add('hidden')" class="w-full py-3.5 bg-amber-800 hover:bg-amber-900 transition-colors text-white rounded-3xl font-semibold">OK</button>
   </div>
 </div>
+<div id="cod-confirm-modal" class="hidden fixed inset-0 bg-black/60 z-[1400] flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-sm w-full p-8 text-center relative modal">
+    <button onclick="document.getElementById('cod-confirm-modal').classList.add('hidden')" class="absolute top-4 right-4 text-zinc-400 hover:text-zinc-700 text-2xl">×</button>
+    <div class="w-16 h-16 mx-auto bg-amber-100 rounded-2xl flex items-center justify-center mb-4">
+      <i class="fa-solid fa-money-bill-wave text-3xl text-amber-700"></i>
+    </div>
+    <h3 class="text-xl font-semibold mb-2">Confirm Your Order?</h3>
+    <p class="text-zinc-500 text-sm mb-6">You selected Cash on Delivery. Are you sure you want to place this order?</p>
+    <div class="flex flex-col gap-3">
+      <button onclick="confirmCOD()" class="w-full py-3.5 bg-amber-800 hover:bg-amber-900 transition-colors text-white rounded-3xl font-semibold">Yes, Place Order</button>
+      <button onclick="document.getElementById('cod-confirm-modal').classList.add('hidden')" class="w-full py-3.5 bg-zinc-100 hover:bg-zinc-200 transition-colors text-zinc-600 rounded-3xl font-semibold">Go Back</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
+
 
 
 
