@@ -5,8 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Wovencrafts • Afghan & Pakistani Handwoven</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
   <style>
+    #order-map { height: 220px; width: 100%; border-radius: 12px; z-index: 1; }
+.form-input { width:100%; background:#f4f4f5; border:1px solid transparent; padding:12px 16px; border-radius:24px; font-size:14px; outline:none; transition:all 0.2s; }
+.form-input:focus { border-color:#b45309; background:white; }
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
     
     :root { --amber: #b45309; }
@@ -609,6 +614,8 @@
 ];
 
     let cart = [];
+    let orderMap = null;
+let orderMarker = null;
     let currentProduct = null;
     let currentModalSlide = 0;
     let modalImages = [];
@@ -901,8 +908,38 @@ function addCurrentToCart() {
       }
     }
 
-    function checkout() {
+function checkout() {
   if (cart.length === 0) return alert("Your cart is empty!");
+  document.getElementById('order-modal').classList.remove('hidden');
+  document.getElementById('order-modal').classList.add('flex');
+  setTimeout(() => {
+    if (!orderMap) {
+      orderMap = L.map('order-map').setView([30.12, 72.66], 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(orderMap);
+      orderMap.on('click', function(e) {
+        if (orderMarker) orderMap.removeLayer(orderMarker);
+        orderMarker = L.marker(e.latlng).addTo(orderMap);
+        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${e.latlng.lat}&lon=${e.latlng.lng}&format=json`)
+          .then(r => r.json())
+          .then(data => { document.getElementById('order-address').value = data.display_name || ''; });
+      });
+    } else {
+      orderMap.invalidateSize();
+    }
+  }, 300);
+}
+
+function closeOrderModal() {
+  document.getElementById('order-modal').classList.remove('flex');
+  document.getElementById('order-modal').classList.add('hidden');
+}
+
+function submitOrderDetails() {
+  const name = document.getElementById('order-name').value.trim();
+  const phone = document.getElementById('order-phone').value.trim();
+  const address = document.getElementById('order-address').value.trim();
+  if (!name || !phone || !address) return alert("Please fill in all fields and pin your location!");
+  closeOrderModal();
   document.getElementById('payment-modal').classList.remove('hidden');
   document.getElementById('payment-modal').classList.add('flex');
 }
@@ -960,7 +997,38 @@ function handlePayment(method) {
 
     window.onload = init;
   </script>
-<div id="payment-modal" class="hidden fixed inset-0 bg-black/60 z-[1200] flex items-center justify-center p-4">
+<div id="payment-modal" class="hidden fixed inset-0 bg-black/60 z-[1200]<!-- ORDER DETAILS MODAL -->
+<div id="order-modal" class="hidden fixed inset-0 bg-black/60 z-[1200] flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl w-full max-w-lg modal relative" style="max-height:92vh; overflow-y:auto;">
+    <div class="p-6 md:p-8">
+      <button onclick="closeOrderModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-zinc-700 text-2xl">×</button>
+      <h3 class="text-2xl font-semibold mb-1">Delivery Details</h3>
+      <p class="text-zinc-500 text-sm mb-6">Tell us where to deliver your order</p>
+      <div class="flex flex-col gap-4">
+        <div>
+          <label class="text-sm font-medium text-zinc-700 mb-1 block">Full Name</label>
+          <input id="order-name" type="text" placeholder="e.g. Ayesha Khan" class="form-input"/>
+        </div>
+        <div>
+          <label class="text-sm font-medium text-zinc-700 mb-1 block">Phone Number</label>
+          <input id="order-phone" type="tel" placeholder="e.g. 0300 1234567" class="form-input"/>
+        </div>
+        <div>
+          <label class="text-sm font-medium text-zinc-700 mb-2 block">📍 Pin Your Location on the Map</label>
+          <p class="text-xs text-zinc-400 mb-2">Click anywhere on the map to drop your pin</p>
+          <div id="order-map"></div>
+        </div>
+        <div>
+          <label class="text-sm font-medium text-zinc-700 mb-1 block">Address (auto-filled from map)</label>
+          <input id="order-address" type="text" placeholder="Click the map to fill automatically" class="form-input"/>
+        </div>
+      </div>
+      <button onclick="submitOrderDetails()" class="mt-6 w-full py-4 bg-amber-800 hover:bg-amber-900 transition-colors text-white rounded-3xl font-semibold text-lg">
+        Continue to Payment →
+      </button>
+    </div>
+  </div>
+</div> flex items-center justify-center p-4">
   <div class="bg-white rounded-3xl max-w-sm w-full p-8 text-center modal">
     <h3 class="text-2xl font-semibold mb-2">Choose Payment Method</h3>
     <p class="text-zinc-500 mb-8 text-sm">How would you like to pay?</p>
@@ -988,6 +1056,7 @@ function handlePayment(method) {
 </div>
 </body>
 </html>
+
 
 
 
